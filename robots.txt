@@ -1,4 +1,4 @@
-robots.txt
 User-agent: *
-Disallow: 
+Disallow:
+
 Sitemap: https://swapnilbhaye.github.io/sitemap.xml
