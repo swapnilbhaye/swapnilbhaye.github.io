@@ -2,7 +2,7 @@
 
 Welcome to my GitHub profile! I'm Swapnil Bhaye, a versatile Electronics Engineer with a passion for machine maintenance, troubleshooting, and reverse engineering. Currently serving as an Aircraft Technician – Electrical at AI Engineering Services Limited, I bring a diverse skill set and a commitment to continuous learning.
 
-![Swapnil Bhaye](https://raw.githubusercontent.com/swapnilbhaye/portfolio/refs/heads/main/assets/Logo.webp)
+![Swapnil Bhaye](https://raw.githubusercontent.com/swapnilbhaye/swapnilbhaye.github.io/refs/heads/main/assets/Logo.webp)
 
 ## 🔧 Skills & Expertise
 
