@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Swapnil Bhaye | Electronics Engineer</title>
+      <link rel="icon" type="image/x-icon" href="favicon.webp">
+      <link rel="shortcut icon" href="favicon.webp" type="image/x-icon">
+      <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+      <link href="assets/tailwind.css" rel="stylesheet">
+      <link rel="canonical" href="https://swapnilbhaye.github.io/portfolio/">
+      <!-- Add When Serve on Github Pages -->
+      <!--<script src="https://cdn.tailwindcss.com"></script>-->  <!-- Remove Comment for Local Use -->
+      <meta name="description" content="Portfolio of Swapnil Bhaye, showcasing bug bounty reports, security research, skills, achievements, and web projects.">
+      <meta name="keywords" content="Cybersecurity, Bug Bounty, Web Development, Ethical Hacking, Portfolio, Electronics, BesT Website Template">
+      <meta name="google-site-verification" content="fuBFP1YFK_f4qPvNcDZt9Egnt2XyvRodFQ5JGdobB8U" />
+      <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.29.2/dist/feather.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.birds.min.js"></script>
+      <script>
+         function formSubmitHandler() {
+             // Check if the form was actually submitted (prevents triggering on initial load)
+             // Note: This relies on the form being the only thing submitted to the iframe.
+             const contactForm = document.getElementById('contact-form');
+             const successMessage = document.getElementById('contact-success-message');
+             
+             if (successMessage && contactForm) {
+                 // Clear the form fields
+                 contactForm.reset();
+         
+                 // 1. Display the success message
+                 successMessage.classList.remove('hidden', 'opacity-0');
+                 successMessage.classList.add('opacity-100');
+         
+                 // 2. Automatically hide the message after 3 seconds
+                 setTimeout(() => {
+                     successMessage.classList.remove('opacity-100');
+                     successMessage.classList.add('opacity-0');
+                     
+                     // Wait for the fade-out transition before hiding completely
+                     setTimeout(() => {
+                         successMessage.classList.add('hidden');
+                     }, 500); 
+         
+                 }, 3000); 
+             }
+         }
+      </script>
+      <style>
+         body {
+         background-color: #1a1a2e; /* Deep space color */
+         font-family: 'Inter', sans-serif;
+         }
+         /* NEW: Make the preloader element a fixed, full-screen overlay */
+         .preloader {
+         position: fixed;
+         top: 0;
+         left: 0;
+         width: 100vw;
+         height: 100vh;
+         background-color: #1a1a2e; /* Re-apply background color here */
+         z-index: 9999; /* Ensure it is on top of all other content */
+         /* Re-apply centering for the preloader content */
+         display: flex; 
+         flex-direction: column;
+         justify-content: center;
+         align-items: center;
+         transition: opacity 0.5s ease-out;
+         }
+         /* Processor Chip Styling */
+         .microprocessor {
+         position: relative;
+         width: 150px; 
+         height: 150px;
+         background-color: #2b3a4e; /* Dark metal body */
+         border-radius: 10px;
+         box-shadow: 0 0 15px rgba(0, 255, 255, 0.5), 0 0 30px rgba(0, 191, 255, 0.3); /* Cyan/Blue Glow */
+         display: flex;
+         justify-content: center; 
+         align-items: center;
+         /* Added margin to ensure pins are visible */
+         margin: 50px; 
+         z-index: 10;
+         }
+         /* Inner CPU Core for depth */
+         .cpu-core {
+         position: absolute;
+         width: 80%;
+         height: 80%;
+         background-color: #1a1a2e; /* Darker center */
+         border-radius: 4px;
+         border: 1px solid #00ffff50;
+         box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+         z-index: 15;
+         }
+         .microprocessor::before {
+         content: 'CPU';
+         color: #00ffff;
+         font-size: 20px;
+         font-weight: bold;
+         text-shadow: 0 0 5px #00ffff;
+         opacity: 0.8;
+         z-index: 20;
+         }
+         /* --- Pin Signal Animation --- */
+         @keyframes pin-signal {
+         0%, 100% { 
+         background-color: #94a3b8; 
+         box-shadow: 0 0 3px rgba(255, 255, 255, 0.2); 
+         }
+         50% { 
+         /* Glowing state when signal is active */
+         background-color: #00ffff; 
+         box-shadow: 0 0 10px #00ffff, 0 0 15px #00ffaa; 
+         } 
+         }
+         /* --- Pin Container and Individual Pin Styles --- */
+         /* Horizontal Pins (Left/Right) */
+         .pin-side {
+         position: absolute;
+         top: 50%;
+         transform: translateY(-50%);
+         height: 100%;
+         display: flex;
+         flex-direction: column;
+         /* Use space-between for denser packing */
+         justify-content: space-between; 
+         padding: 5px 0; 
+         pointer-events: none;
+         }
+         .left-side {
+         left: 0;
+         transform: translate(-100%, -50%);
+         }
+         .right-side {
+         right: 0;
+         transform: translate(100%, -50%);
+         }
+         /* Vertical Pins (Top/Bottom) */
+         .top-side, .bottom-side {
+         position: absolute;
+         left: 50%;
+         transform: translateX(-50%);
+         width: 100%;
+         display: flex;
+         flex-direction: row; 
+         justify-content: space-between;
+         padding: 0 5px; /* Less padding for more pins */
+         pointer-events: none;
+         }
+         .top-side {
+         top: 0;
+         transform: translate(-50%, -100%); 
+         }
+         .bottom-side {
+         bottom: 0;
+         transform: translate(-50%, 100%); 
+         }
+         .pin {
+         border-radius: 1px;
+         animation: pin-signal 3s infinite ease-in-out;
+         transform-origin: center;
+         }
+         .pin.horizontal {
+         width: 15px; /* Pin length */
+         height: 2px;
+         }
+         .pin.vertical {
+         width: 2px; /* Pin width */
+         height: 15px; /* Pin length */
+         }
+         /* Applying randomized animation delays for a 'busy' effect */
+         .pin:nth-child(3n) { animation-delay: 0.5s; }
+         .pin:nth-child(3n + 1) { animation-delay: 1.2s; }
+         .pin:nth-child(3n + 2) { animation-delay: 2.1s; }
+         /* Loading Bar Styling */
+         .loading-bar-container {
+         width: 300px;
+         height: 12px;
+         background-color: #2b3a4e;
+         border-radius: 6px;
+         overflow: hidden;
+         box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+         margin-top: 30px;
+         }
+         .loading-bar {
+         width: 0;
+         height: 100%;
+         background: linear-gradient(90deg, #ff00ff, #00ffff); /* Pink to Cyan Gradient */
+         transition: width 0.3s ease-out;
+         border-radius: 6px;
+         }
+         body {
+         font-family: 'Inter', sans-serif;
+         overflow-x: hidden;
+         background-color: var(--light);
+         color: var(--dark);
+         transition: background-color 0.3s ease, color 0.3s ease;
+         }
+         .vanta-bg {
+         position: absolute;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 100vh;
+         z-index: -1;
+         }
+         .floating {
+         animation: floating 6s ease-in-out infinite;
+         }
+         @keyframes floating {
+         0% { transform: translateY(0px) rotate(0deg); }
+         50% { transform: translateY(-20px) rotate(5deg); }
+         100% { transform: translateY(0px) rotate(0deg); }
+         }
+         .floating-2 {
+         animation: floating-2 8s ease-in-out infinite;
+         }
+         @keyframes floating-2 {
+         0% { transform: translateY(0px) rotate(0deg); }
+         50% { transform: translateY(-30px) rotate(-5deg); }
+         100% { transform: translateY(0px) rotate(0deg); }
+         }
+         .progress-sphere {
+         width: 120px;
+         height: 120px;
+         position: relative;
+         perspective: 1000px;
+         }
+         .carousel-container {
+         display: flex;
+         }
+         .carousel-container img {
+         width: 100%;
+         object-fit: contain;
+         }
+         .sphere-inner {
+         width: 100%;
+         height: 100%;
+         position: relative;
+         transform-style: preserve-3d;
+         animation: rotate 15s infinite linear;
+         }
+         .sphere-face {
+         position: absolute;
+         width: 100%;
+         height: 100%;
+         border-radius: 50%;
+         backface-visibility: hidden;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         font-weight: bold;
+         box-shadow: 0 0 20px rgba(0,0,0,0.2);
+         }
+         @keyframes rotate {
+         0% { transform: rotateY(0deg); }
+         100% { transform: rotateY(360deg); }
+         }
+         .timeline-badge {
+         width: 50px;
+         height: 50px;
+         border-radius: 50%;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         transform: translateZ(30px);
+         box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+         transition: all 0.3s ease;
+         }
+         .timeline-badge:hover {
+         transform: translateZ(50px) scale(1.1);
+         }
+         .project-card {
+         transform-style: preserve-3d;
+         transform: perspective(1000px);
+         transition: all 0.5s ease;
+         box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+         }
+         .project-card:hover {
+         transform: perspective(1000px) rotateY(10deg) translateY(-10px);
+         box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+         }
+         .trophy {
+         transform-style: preserve-3d;
+         transform: perspective(1000px) rotateX(15deg);
+         transition: all 0.3s ease;
+         box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+         }
+         .trophy:hover {
+         transform: perspective(1000px) rotateX(0deg) translateY(-10px);
+         }
+         .contact-input {
+         transition: all 0.3s ease;
+         transform-style: preserve-3d;
+         transform: perspective(1000px) rotateX(0deg);
+         }
+         .contact-input:focus {
+         transform: perspective(1000px) rotateX(5deg);
+         box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+         }
+         .nav-link {
+         position: relative;
+         }
+         .nav-link::after {
+         content: '';
+         position: absolute;
+         width: 0;
+         height: 3px;
+         bottom: -5px;
+         left: 0;
+         background-color: var(--primary);
+         transition: width 0.3s ease;
+         }
+         .nav-link:hover::after {
+         width: 100%;
+         }
+         .social-icon {
+         transition: all 0.3s ease;
+         transform: perspective(1000px) rotateY(0deg) translateZ(0px);
+         }
+         .social-icon:hover {
+         transform: perspective(1000px) rotateY(20deg) translateZ(10px);
+         }
+         .experience-card:hover {
+         box-shadow: 0 0 15px rgba(99, 102, 241, 0.8), 0 0 30px rgba(99, 102, 241, 0.4), 0 30px 60px rgba(0,0,0,0.2);
+         border: 1px solid rgba(99, 102, 241, 0.5); 
+         }
+      </style>
+   </head>
+   <body class="relative">
+      <!-- Preloader -->
+      <div id="preloader" class="preloader">
+         <!-- Microprocessor Visualization -->
+         <div class="microprocessor shadow-xl">
+            <!-- Inner CPU Core -->
+            <div class="cpu-core"></div>
+            <!-- Pins (Left Side - 12 pins) -->
+            <div class="pin-side left-side">
+               <div class="pin horizontal"></div>
+               <div class="pin horizontal"></div>
+               <div class="pin horizontal"></div>
+               <div class="pin horizontal"></div>
+               <div class="pin horizontal"></div>
+               <div class="pin horizontal"></div>
+               <div class="pin horizontal"></div>
+               <div class="pin horizontal"></div>
+               <div class="pin horizontal"></div>
+               <div class="pin horizontal"></div>
+               <div class="pin horizontal"></div>
+               <div class="pin horizontal"></div>
+            </div>
+            <!-- Pins (Right Side - 12 pins) -->
+            <div class="pin-side right-side">
+               <div class="pin horizontal"></div>
+               <div class="pin horizontal"></div>
+               <div class="pin horizontal"></div>
+               <div class="pin horizontal"></div>
+               <div class="pin horizontal"></div>
+               <div class="pin horizontal"></div>
+               <div class="pin horizontal"></div>
+               <div class="pin horizontal"></div>
+               <div class="pin horizontal"></div>
+               <div class="pin horizontal"></div>
+               <div class="pin horizontal"></div>
+               <div class="pin horizontal"></div>
+            </div>
+            <!-- Pins (Top Side - 10 pins) -->
+            <div class="top-side">
+               <div class="pin vertical"></div>
+               <div class="pin vertical"></div>
+               <div class="pin vertical"></div>
+               <div class="pin vertical"></div>
+               <div class="pin vertical"></div>
+               <div class="pin vertical"></div>
+               <div class="pin vertical"></div>
+               <div class="pin vertical"></div>
+               <div class="pin vertical"></div>
+               <div class="pin vertical"></div>
+            </div>
+            <!-- Pins (Bottom Side - 10 pins) -->
+            <div class="bottom-side">
+               <div class="pin vertical"></div>
+               <div class="pin vertical"></div>
+               <div class="pin vertical"></div>
+               <div class="pin vertical"></div>
+               <div class="pin vertical"></div>
+               <div class="pin vertical"></div>
+               <div class="pin vertical"></div>
+               <div class="pin vertical"></div>
+               <div class="pin vertical"></div>
+               <div class="pin vertical"></div>
+            </div>
+         </div>
+         <!-- Status Text -->
+         <div id="status-text" class="text-xl font-mono mt-4 text-gray-300">
+            <span class="text-cyan-400">INITIALIZING</span>
+            <span class="text-pink-400 ml-2">PINS...</span>
+         </div>
+         <!-- Loading Bar and Percentage -->
+         <div class="loading-bar-container">
+            <div id="loading-bar" class="loading-bar"></div>
+         </div>
+         <div id="percentage" class="text-3xl font-bold mt-4 text-cyan-400" style="text-shadow: 0 0 10px rgba(0, 255, 255, 0.7);">
+            0%
+         </div>
+      </div>
+      <a id="top"></a>
+      <!-- Vanta.js Background -->
+      <div id="vanta-bg" class="vanta-bg"></div>
+      <!-- Navigation -->
+      <nav class="fixed w-full z-50 bg-white bg-opacity-90 backdrop-blur-md shadow-sm">
+         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+               <div class="flex items-center">
+                  <a class="text-xl font-bold text-indigo-600 flex items-center">
+                  <span class="mr-2">SWAPNIL</span>
+                  <span class="bg-indigo-600 text-white px-2 py-1 rounded-md">BHAYE</span>
+                  <img src="assets/Flag.gif" alt="India Flag" width="64" height="64" class="ml-2" loading="lazy"/>
+                  </a>
+               </div>
+               <div class="hidden md:flex items-center space-x-6">
+                  <a href="#home" class="nav-link text-gray-700 hover:text-indigo-600">Home</a>
+                  <a href="#about" class="nav-link text-gray-700 hover:text-indigo-600">About</a>
+                  <a href="#skills" class="nav-link text-gray-700 hover:text-indigo-600">Skills</a>
+                  <a href="#education" class="nav-link text-gray-700 hover:text-indigo-600">Education</a>
+                  <a href="#experience" class="nav-link text-gray-700 hover:text-indigo-600">Experience</a>
+                  <a href="#projects" class="nav-link text-gray-700 hover:text-indigo-600">Projects</a>
+                  <a href="#certificates" class="nav-link text-gray-700 hover:text-indigo-600">Certificates</a>
+                  <a href="#contact" class="nav-link text-gray-700 hover:text-indigo-600">Contact</a>   
+               </div>
+               <div class="md:hidden flex items-center space-x-4">
+                  <button id="menu-btn" class="text-gray-700" aria-label="Open navigation menu">
+                  <i data-feather="menu"></i>
+                  </button>
+               </div>
+            </div>
+         </div>
+      </nav>
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="hidden fixed inset-0 bg-white z-40 pt-20 px-4">
+         <div class="flex flex-col space-y-6 text-center">
+            <a href="#home" class="text-xl text-gray-700 hover:text-indigo-600">Home</a>
+            <a href="#about" class="text-xl text-gray-700 hover:text-indigo-600">About</a>
+            <a href="#skills" class="text-xl text-gray-700 hover:text-indigo-600">Skills</a>
+            <a href="#education" class="text-xl text-gray-700 hover:text-indigo-600">Education</a>
+            <a href="#experience" class="text-xl text-gray-700 hover:text-indigo-600">Experience</a>
+            <a href="#projects" class="text-xl text-gray-700 hover:text-indigo-600">Projects</a>
+            <a href="#certificates" class="text-xl text-gray-700 hover:text-indigo-600">Certificates</a>
+            <a href="#contact" class="text-xl text-gray-700 hover:text-indigo-600">Contact</a>
+         </div>
+      </div>
+      <!-- Hero Section -->
+      <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden pt-16">
+         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div class="flex flex-col md:flex-row items-center">
+               <div class="md:w-1/2 mb-10 md:mb-0" data-aos="fade-right">
+                  <h1 class="text-3xl md:text-5xl font-bold text-gray-800 mb-6">
+                     Hi, I'm <span class="text-indigo-600">Swapnil</span>
+                  </h1>
+                  <h2 class="text-2xl md:text-3xl font-semibold text-gray-700 mb-6">
+                     <p>I am <span class="typing-text" style="color:#ff0000;"></span></p>
+                  </h2>
+                  <p class="text-lg text-gray-600 mb-8 max-w-lg">
+                     “Versatile Electronics Engineer | Aircraft Technician – Electrical at AIESL | Recognized by NASA, LG & AIESL”
+                  </p>
+                  <div class="flex space-x-4">
+                     <a href="#contact" class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-lg font-medium transition duration-300 transform hover:scale-105">
+                     Contact Me
+                     </a>
+                     <a href="#projects" class="border-2 border-indigo-600 text-indigo-600 hover:bg-indigo-50 px-6 py-3 rounded-lg font-medium transition duration-300 transform hover:scale-105">
+                     View Work
+                     </a>
+                  </div>
+               </div>
+               <div class="md:w-1/2 flex justify-center" data-aos="fade-left">
+                  <div class="relative">
+                     <div class="w-64 h-64 md:w-80 md:h-80 bg-indigo-100 rounded-full absolute -z-10 top-10 left-10 opacity-70"></div>
+                     <div class="w-64 h-64 md:w-80 md:h-80 bg-indigo-600 rounded-full absolute -z-10 -bottom-10 -right-10 opacity-20"></div>
+                     <img src="assets/Logo.webp" alt="Developer" class="w-64 h-64 md:w-80 md:h-80 object-cover rounded-full border-8 border-white shadow-2xl floating" loading="lazy">
+                     <div class="absolute -bottom-5 -right-5 bg-white p-3 rounded-full shadow-lg floating-2">
+                        <div class="bg-indigo-600 text-white p-3 rounded-full">
+                           <i data-feather="activity" class="w-6 h-6"></i>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <!-- About Section -->
+      <section id="about" class="py-20 bg-white">
+         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+               <h2 class="text-3xl font-bold text-gray-800 mb-4">About <span class="text-indigo-600">Me</span></h2>
+               <div class="w-20 h-1 bg-indigo-600 mx-auto"></div>
+            </div>
+            <div class="flex flex-col md:flex-row items-center">
+               <div class="md:w-1/3 mb-10 md:mb-0 flex justify-center" data-aos="fade-right">
+                  <div class="relative">
+                     <div class="w-64 h-64 bg-indigo-100 rounded-2xl absolute -z-10 -top-5 -left-5 transform rotate-12"></div>
+                     <img src="assets/About.webp" alt="About" class="w-64 h-64 object-cover rounded-2xl shadow-xl floating" loading="lazy">
+                  </div>
+               </div>
+               <div class="md:w-2/3 md:pl-16" data-aos="fade-left">
+                  <h3 class="text-2xl font-semibold text-gray-800 mb-6">Who am I?</h3>
+                  <p class="text-gray-600 mb-6 text-justify leading-relaxed tracking-wide">
+                     A highly qualified Electronics Engineer with strong expertise in machine maintenance, troubleshooting, and reverse engineering. I am currently working as an Aircraft Technician – Electrical at AI Engineering Services Limited. I hold a Bachelor of Engineering in Electronics Engineering from Shah and Anchor Kutchhi Engineering College and a Diploma in Industrial Electronics. My professional journey includes valuable experience as a Plant Technician and Scientific Assistant. I possess a diverse skill set spanning PCB Designing, AutoCAD Electrical, and proficiency with Windows and Linux operating systems. I am a Defronix Certified Junior Security Professional and have been honored with appreciation letters from AIESL, NASA, and LG. Overall, I am a versatile professional with a passion for problem-solving and a commitment to continuous learning.
+                  </p>
+                  <p class="text-gray-600 mb-6 text-justify leading-relaxed tracking-wide">
+                     Be a living circuit. Resist what hinders you, like a resistor. Store and conserve energy wisely, like a capacitor. Amplify positivity, block negativity like a diode, stay grounded, and let your current flow smoothly through life.
+                  </p>
+                  <div class="grid grid-cols-1 gap-4 mb-6">
+                     <div class="flex items-center">
+                        <div class="bg-indigo-100 p-2 rounded-full mr-3">
+                           <i data-feather="user" class="w-5 h-5 text-indigo-600"></i>
+                        </div>
+                        <span class="text-gray-700">Swapnil Bhaye</span>
+                     </div>
+                     <div class="flex items-center">
+                        <div class="bg-indigo-100 p-2 rounded-full mr-3">
+                           <i data-feather="mail" class="w-5 h-5 text-indigo-600"></i>
+                        </div>
+                        <span class="text-gray-700">swapnilbhay75@gmail.com</span>
+                     </div>
+                     <div class="flex items-center">
+                        <div class="bg-indigo-100 p-2 rounded-full mr-3">
+                           <i data-feather="phone" class="w-5 h-5 text-indigo-600"></i>
+                        </div>
+                        <span class="text-gray-700">+91 9892810088</span>
+                     </div>
+                     <div class="flex items-center">
+                        <div class="bg-indigo-100 p-2 rounded-full mr-3">
+                           <i data-feather="map-pin" class="w-5 h-5 text-indigo-600"></i>
+                        </div>
+                        <span class="text-gray-700">Mumbai, India</span>
+                     </div>
+                  </div>
+                  <a href="https://drive.google.com/file/d/1Ovt7mGb2oNclwPtbfEm96KdXukZk7PUl/view" class="inline-flex items-center text-indigo-600 font-medium" rel="nofollow" target="_blank">
+                  Download CV
+                  <i data-feather="download" class="ml-2 w-5 h-5"></i>
+                  </a>
+               </div>
+            </div>
+         </div>
+      </section>
+      <!-- Skills Section -->
+      <section id="skills" class="py-20 bg-gray-50">
+         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+               <h2 class="text-3xl font-bold text-gray-800 mb-4">My <span class="text-indigo-600">Skills</span></h2>
+               <div class="w-20 h-1 bg-indigo-600 mx-auto"></div>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+               <div class="trophy bg-white p-6 rounded-xl text-center" data-aos="zoom-in">
+                  <div class="bg-indigo-0 w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4">
+                     <img src="https://img.icons8.com/?size=80&id=K8Ttz87NEjvn&format=png" alt="Photoshop" loading="lazy">
+                  </div>
+                  <h3 class="font-semibold text-gray-800 mb-2">Photoshop</h3>
+               </div>
+               <div class="trophy bg-white p-6 rounded-xl text-center" data-aos="zoom-in" data-aos-delay="100">
+                  <div class="bg-indigo-0 w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4">
+                     <img src="https://img.icons8.com/fluency/96/code.png" alt="Reverse Engineering" loading="lazy">
+                  </div>
+                  <h3 class="font-semibold text-gray-800 mb-2">Reverse Engineering</h3>
+               </div>
+               <div class="trophy bg-white p-6 rounded-xl text-center" data-aos="zoom-in" data-aos-delay="200">
+                  <div class="bg-indigo-0 w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4">
+                     <img src="https://img.icons8.com/color/96/microsoft-office-2019.png" alt="Office" loading="lazy">
+                  </div>
+                  <h3 class="font-semibold text-gray-800 mb-2">Microsoft Office</h3>
+               </div>
+               <div class="trophy bg-white p-6 rounded-xl text-center" data-aos="zoom-in" data-aos-delay="300">
+                  <div class="bg-indigo-0 w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4">
+                     <img src="assets/autocad.webp" alt="Autocad" loading="lazy">
+                  </div>
+                  <h3 class="font-semibold text-gray-800 mb-2">Autocad Electrical</h3>
+               </div>
+               <div class="trophy bg-white p-6 rounded-xl text-center" data-aos="zoom-in">
+                  <div class="bg-indigo-0 w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4">
+                     <img src="https://img.icons8.com/?size=64&id=hXQVOG_zPMn1" alt="PCB" loading="lazy">
+                  </div>
+                  <h3 class="font-semibold text-gray-800 mb-2">PCB Designing</h3>
+               </div>
+               <div class="trophy bg-white p-6 rounded-xl text-center" data-aos="zoom-in" data-aos-delay="100">
+                  <div class="bg-indigo-0 w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4">
+                     <img src="https://img.icons8.com/color/96/windows-10.png" alt="Windows" loading="lazy">
+                  </div>
+                  <h3 class="font-semibold text-gray-800 mb-2">Windows OS</h3>
+               </div>
+               <div class="trophy bg-white p-6 rounded-xl text-center" data-aos="zoom-in" data-aos-delay="200">
+                  <div class="bg-indigo-0 w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4">
+                     <img src="https://img.icons8.com/color/96/linux.png" alt="Linux" loading="lazy">
+                  </div>
+                  <h3 class="font-semibold text-gray-800 mb-2">Linux OS</h3>
+               </div>
+               <div class="trophy bg-white p-6 rounded-xl text-center" data-aos="zoom-in" data-aos-delay="300">
+                  <div class="bg-indigo-0 w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4">
+                     <img src="https://img.icons8.com/?size=100&id=108781&format=png" alt="After Effects" loading="lazy">
+                  </div>
+                  <h3 class="font-semibold text-gray-800 mb-2">After Effects</h3>
+               </div>
+            </div>
+         </div>
+      </section>
+      <!-- Education Section -->
+      <section id="education" class="py-20 bg-white">
+         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+               <h2 class="text-3xl font-bold text-gray-800 mb-4">My <span class="text-indigo-600">Education</span></h2>
+               <div class="w-20 h-1 bg-indigo-600 mx-auto"></div>
+            </div>
+            <div class="relative">
+               <div class="space-y-8">
+                  <div class="flex flex-col md:flex-row items-center relative" data-aos="fade-right">
+                     <div class="md:w-1/2 md:pr-8 mb-6 md:mb-0 flex justify-start">
+                        <div class="text-left">
+                           <h3 class="text-xl font-semibold text-gray-800">Bachelor of Engineering | Electronics Engineering</h3>
+                           <p class="text-indigo-600 mb-2">Shah And Anchor Kutchhi Engineering College, Chembur | 2014 - 2017</p>
+                           <p class="text-gray-600">Mumbai University (MU)</p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="flex flex-col md:flex-row items-center relative" data-aos="fade-left">
+                     <div class="md:w-1/2 md:pr-8 mb-6 md:mb-0 flex justify-start">
+                        <div class="text-left">
+                           <h3 class="text-xl font-semibold text-gray-800">Diploma | Industrial Electronics</h3>
+                           <p class="text-indigo-600 mb-2">Vidya Prasarak Mandal's Polytechnic, Thane | 2011 - 2014</p>
+                           <p class="text-gray-600">Maharashtra State Board of Technical Education (MSBTE)</p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="flex flex-col md:flex-row items-center relative" data-aos="fade-right">
+                     <div class="md:w-1/2 md:pr-8 mb-6 md:mb-0 flex justify-start">
+                        <div class="text-left">
+                           <h3 class="text-xl font-semibold text-gray-800">S.S.C | General Education</h3>
+                           <p class="text-indigo-600 mb-2">Nutan Vidya Mandir, Mankhurd | 2001 - 2011</p>
+                           <p class="text-gray-600">Maharashtra State Board of Secondary Education (MSBSE)</p>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <!-- Experience Section -->
+      <section id="experience" class="py-20 bg-gray-50">
+         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+               <h2 class="text-3xl font-bold text-gray-800 mb-4">Work <span class="text-indigo-600">Experience</span></h2>
+               <div class="w-20 h-1 bg-indigo-600 mx-auto"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-8">
+               <div class="experience-card bg-white p-6 rounded-xl shadow-lg transition duration-300 transform hover:-translate-y-2" data-aos="zoom-in">
+                  <div class="flex items-center mb-4">
+                     <div class="bg-indigo-100 p-3 rounded-lg mr-4">
+                        <i data-feather="briefcase" class="w-6 h-6 text-indigo-600"></i>
+                     </div>
+                     <div>
+                        <h3 class="text-xl font-semibold text-gray-800">Aircraft Technician - Electrical</h3>
+                        <p class="text-indigo-600">AI Engineering Services Limited | 2024 - Present</p>
+                     </div>
+                  </div>
+                  <p class="text-gray-600 mb-4">
+                     Worked In Team to Minimize the Down Time of Any Project
+                  </p>
+                  <div class="flex flex-wrap gap-2">
+                     <span class="bg-indigo-100 text-indigo-600 px-3 py-1 rounded-full text-sm">Machine Maintainance</span>
+                     <span class="bg-indigo-100 text-indigo-600 px-3 py-1 rounded-full text-sm">Machine Troubleshooting</span>
+                     <span class="bg-indigo-100 text-indigo-600 px-3 py-1 rounded-full text-sm">CNC , Lathe Machines</span>
+                  </div>
+               </div>
+               <div class="experience-card bg-white p-6 rounded-xl shadow-lg transition duration-300 transform hover:-translate-y-2" data-aos="zoom-in">
+                  <div class="flex items-center mb-4">
+                     <div class="bg-indigo-100 p-3 rounded-lg mr-4">
+                        <i data-feather="briefcase" class="w-6 h-6 text-indigo-600"></i>
+                     </div>
+                     <div>
+                        <h3 class="text-xl font-semibold text-gray-800">Plant Technician</h3>
+                        <p class="text-indigo-600">Shree Consultancy Services | 2020 - 2024</p>
+                     </div>
+                  </div>
+                  <p class="text-gray-600 mb-4">
+                     Worked In Team to Minimize the Down Time of Any Project
+                  </p>
+                  <div class="flex flex-wrap gap-2">
+                     <span class="bg-indigo-100 text-indigo-600 px-3 py-1 rounded-full text-sm">Machine Maintainance</span>
+                     <span class="bg-indigo-100 text-indigo-600 px-3 py-1 rounded-full text-sm">Machine Troubleshooting</span>
+                     <span class="bg-indigo-100 text-indigo-600 px-3 py-1 rounded-full text-sm">CNC , Lathe Machines</span>
+                  </div>
+               </div>
+               <div class="experience-card bg-white p-6 rounded-xl shadow-lg transition duration-300 transform hover:-translate-y-2" data-aos="zoom-in">
+                  <div class="flex items-center mb-4">
+                     <div class="bg-indigo-100 p-3 rounded-lg mr-4">
+                        <i data-feather="briefcase" class="w-6 h-6 text-indigo-600"></i>
+                     </div>
+                     <div>
+                        <h3 class="text-xl font-semibold text-gray-800">Scientific Assistant</h3>
+                        <p class="text-indigo-600">Electronics Corporation of India Limited | 2019 - 2020</p>
+                     </div>
+                  </div>
+                  <p class="text-gray-600 mb-4">
+                     Maintainance, Installation of Radiological Detection System, Calibration of Isotope Identifiers
+                  </p>
+                  <div class="flex flex-wrap gap-2">
+                     <span class="bg-indigo-100 text-indigo-600 px-3 py-1 rounded-full text-sm">Maintenance</span>
+                     <span class="bg-indigo-100 text-indigo-600 px-3 py-1 rounded-full text-sm">Troubleshooting</span>
+                     <span class="bg-indigo-100 text-indigo-600 px-3 py-1 rounded-full text-sm">Installation</span>
+                     <span class="bg-indigo-100 text-indigo-600 px-3 py-1 rounded-full text-sm">Radiological</span>
+                  </div>
+               </div>
+               <div class="experience-card bg-white p-6 rounded-xl shadow-lg transition duration-300 transform hover:-translate-y-2" data-aos="zoom-in">
+                  <div class="flex items-center mb-4">
+                     <div class="bg-indigo-100 p-3 rounded-lg mr-4">
+                        <i data-feather="briefcase" class="w-6 h-6 text-indigo-600"></i>
+                     </div>
+                     <div>
+                        <h3 class="text-xl font-semibold text-gray-800">System Engineer</h3>
+                        <p class="text-indigo-600">Enceplon Pvt. Ltd. | 2017 - 2018</p>
+                     </div>
+                  </div>
+                  <p class="text-gray-600 mb-4">
+                     Leading a Team of South Regional Viewing Center Head for Maintainance & Breakdowns 
+                  </p>
+                  <div class="flex flex-wrap gap-2">
+                     <span class="bg-indigo-100 text-indigo-600 px-3 py-1 rounded-full text-sm">Workstations</span>
+                     <span class="bg-indigo-100 text-indigo-600 px-3 py-1 rounded-full text-sm">Videowall</span>
+                     <span class="bg-indigo-100 text-indigo-600 px-3 py-1 rounded-full text-sm">Access Control System</span>
+                     <span class="bg-indigo-100 text-indigo-600 px-3 py-1 rounded-full text-sm">ANPR, PTZ, IR</span>
+                  </div>
+               </div>
+            </div>
+         </div>
+         </div>
+      </section>
+      <!-- Projects Section -->
+      <section id="projects" class="py-20 bg-white">
+         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+               <h2 class="text-3xl font-bold text-gray-800 mb-4">Academic <span class="text-indigo-600">Projects</span></h2>
+               <div class="w-20 h-1 bg-indigo-600 mx-auto"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+               <div class="project-card bg-white rounded-xl overflow-hidden" data-aos="flip-left">
+                  <div class="h-48 overflow-hidden">
+                     <img src="https://static.photos/technology/640x360/3" alt="Project 1" class="w-full h-full object-cover" loading="lazy">
+                  </div>
+                  <div class="p-6">
+                     <h3 class="text-xl font-semibold text-gray-800 mb-2">Wireless Notice Board</h3>
+                     <p class="text-gray-600 mb-4">
+                        Displays Digital Notices from Anywhere via GSM Module & Raspbeery Pi.  
+                     </p>
+                     <div class="flex justify-between items-center">
+                        <a class="text-indigo-600 font-medium flex items-center"></a>
+                        <div class="flex space-x-2">
+                           <span class="bg-indigo-100 text-indigo-600 px-2 py-1 rounded-full text-xs">Raspberry Pi</span>
+                           <span class="bg-indigo-100 text-indigo-600 px-2 py-1 rounded-full text-xs">GSM Module</span>
+                           <span class="bg-indigo-100 text-indigo-600 px-2 py-1 rounded-full text-xs">PHP, SQL, HTML</span>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="project-card bg-white rounded-xl overflow-hidden" data-aos="flip-left" data-aos-delay="100">
+                  <div class="h-48 overflow-hidden">
+                     <img src="https://static.photos/technology/640x360/4" alt="Project 2" class="w-full h-full object-cover" loading="lazy">
+                  </div>
+                  <div class="p-6">
+                     <h3 class="text-xl font-semibold text-gray-800 mb-2">Smart Home</h3>
+                     <p class="text-gray-600 mb-4">
+                        Home Appliances Made On Off Using Zigbee & Visual Basic Application.
+                     </p>
+                     <div class="flex justify-between items-center">
+                        <a class="text-indigo-600 font-medium flex items-center"></a>
+                        <div class="flex space-x-2">
+                           <span class="bg-indigo-100 text-indigo-600 px-2 py-1 rounded-full text-xs">Visual Basic 6.0</span>
+                           <span class="bg-indigo-100 text-indigo-600 px-2 py-1 rounded-full text-xs">Zigbee</span>
+                           <span class="bg-indigo-100 text-indigo-600 px-2 py-1 rounded-full text-xs">Embedded C</span>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="project-card bg-white rounded-xl overflow-hidden" data-aos="flip-left" data-aos-delay="200">
+                  <div class="h-48 overflow-hidden">
+                     <img src="https://static.photos/technology/640x360/5" alt="Project 3" class="w-full h-full object-cover" loading="lazy">
+                  </div>
+                  <div class="p-6">
+                     <h3 class="text-xl font-semibold text-gray-800 mb-2">Light Sensitive Trigger</h3>
+                     <p class="text-gray-600 mb-4">
+                        Control of outdoor lights, garden lights, or nightlights using LDR.
+                     </p>
+                     <div class="flex justify-between items-center">
+                        <a class="text-indigo-600 font-medium flex items-center"></a>
+                        <div class="flex space-x-2">
+                           <span class="bg-indigo-100 text-indigo-600 px-2 py-1 rounded-full text-xs">LDR</span>
+                           <span class="bg-indigo-100 text-indigo-600 px-2 py-1 rounded-full text-xs">555 Timer</span>
+                           <span class="bg-indigo-100 text-indigo-600 px-2 py-1 rounded-full text-xs">Security</span>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <!-- Certificates Section -->
+      <section id="certificates" class="py-20 bg-gray-50">
+         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+               <h2 class="text-3xl font-bold text-gray-800 mb-4">Certificates & <span class="text-indigo-600">Awards</span></h2>
+               <div class="w-20 h-1 bg-indigo-600 mx-auto"></div>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+               <div class="trophy bg-white p-6 rounded-xl text-center" data-aos="zoom-in">
+                  <div class="bg-indigo-0 w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4">
+                     <img src="assets/Inox.webp" alt="Diploma" loading="lazy">
+                  </div>
+                  <h3 class="font-semibold text-gray-800 mb-2">Diploma In PC Maintainance</h3>
+                  <p class="text-gray-600 text-sm">INOX Computer, 2011</p>
+               </div>
+               <div class="trophy bg-white p-6 rounded-xl text-center" data-aos="zoom-in" data-aos-delay="100">
+                  <div class="bg-indigo-0 w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4">
+                     <img src="assets/FatherAgnel.webp" alt="Quiz" loading="lazy">
+                  </div>
+                  <h3 class="font-semibold text-gray-800 mb-2">State Level Technical Quiz Competition Technocratz</h3>
+                  <p class="text-gray-600 text-sm">FatherAgnel, 2013</p>
+               </div>
+               <div class="trophy bg-white p-6 rounded-xl text-center" data-aos="zoom-in" data-aos-delay="200">
+                  <div class="bg-indigo-0 w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4">
+                     <img src="assets/IIT.webp" alt="Java" loading="lazy">
+                  </div>
+                  <h3 class="font-semibold text-gray-800 mb-2">JAVA Training Spoken Tutorial</h3>
+                  <p class="text-gray-600 text-sm">IIT Bombay, 2016</p>
+               </div>
+               <div class="trophy bg-white p-6 rounded-xl text-center" data-aos="zoom-in" data-aos-delay="300">
+                  <div class="bg-indigo-0 w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4">
+                     <img src="assets/IIT.webp" alt="C" loading="lazy">
+                  </div>
+                  <h3 class="font-semibold text-gray-800 mb-2">C Training Spoken Tutorial</h3>
+                  <p class="text-gray-600 text-sm">IIT Bombay, 2016</p>
+               </div>
+               <div class="trophy bg-white p-6 rounded-xl text-center" data-aos="zoom-in">
+                  <div class="bg-indigo-0 w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4">
+                     <img src="assets/Sakec.webp" alt="SKEP" loading="lazy">
+                  </div>
+                  <h3 class="font-semibold text-gray-800 mb-2">Skill Knowledge Enhancement Program</h3>
+                  <p class="text-gray-600 text-sm">SAKEC, 2016</p>
+               </div>
+               <div class="trophy bg-white p-6 rounded-xl text-center" data-aos="zoom-in" data-aos-delay="100">
+                  <div class="bg-indigo-0 w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4">
+                     <img src="assets/Gcs.webp" alt="GCS" loading="lazy">
+                  </div>
+                  <h3 class="font-semibold text-gray-800 mb-2">Web Penetration Testing Webinar</h3>
+                  <p class="text-gray-600 text-sm">GCS Council, 2022</p>
+               </div>
+               <div class="trophy bg-white p-6 rounded-xl text-center" data-aos="zoom-in" data-aos-delay="200">
+                  <div class="bg-indigo-0 w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4">
+                     <img src="assets/Defronix.webp" alt="DCJSP" loading="lazy">
+                  </div>
+                  <h3 class="font-semibold text-gray-800 mb-2">Defronix Certified Junior Security Professional</h3>
+                  <p class="text-gray-600 text-sm">Defronix Cyber Security, 2022</p>
+               </div>
+               <div class="trophy bg-white p-6 rounded-xl text-center" data-aos="zoom-in" data-aos-delay="300">
+                  <div class="bg-indigo-0 w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4">
+                     <img src="assets/Tata%20Power.webp" alt="TPSDI" loading="lazy">
+                  </div>
+                  <h3 class="font-semibold text-gray-800 mb-2">TVAS Best Practices in Distribution O&M</h3>
+                  <p class="text-gray-600 text-sm">TPSDI Tata Power, 2023</p>
+               </div>
+               <div class="trophy bg-white p-6 rounded-xl text-center" data-aos="zoom-in">
+                  <div class="bg-indigo-0 w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4">
+                     <img src="assets/AIESL.webp" alt="AIESL" loading="lazy">
+                  </div>
+                  <h3 class="font-semibold text-gray-800 mb-2">Appreciation Letter</h3>
+                  <p class="text-gray-600 text-sm">AIESL, 13th May 2022</p>
+               </div>
+               <div class="trophy bg-white p-6 rounded-xl text-center" data-aos="zoom-in" data-aos-delay="100">
+                  <div class="bg-indigo-0 w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4">
+                     <img src="assets/Nasa.webp" alt="NASA" loading="lazy">
+                  </div>
+                  <h3 class="font-semibold text-gray-800 mb-2">Appreciation Letter</h3>
+                  <p class="text-gray-600 text-sm">NASA, 14th April 2025</p>
+               </div>
+               <div class="trophy bg-white p-6 rounded-xl text-center" data-aos="zoom-in" data-aos-delay="200">
+                  <div class="bg-indigo-0 w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4">
+                     <img src="assets/Nasa.webp" alt="NASA" loading="lazy">
+                  </div>
+                  <h3 class="font-semibold text-gray-800 mb-2">Appreciation Letter</h3>
+                  <p class="text-gray-600 text-sm">NASA, 13th August 2025</p>
+               </div>
+               <div class="trophy bg-white p-6 rounded-xl text-center" data-aos="zoom-in" data-aos-delay="300">
+                  <div class="bg-indigo-0 w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4">
+                     <img src="assets/Lg.webp" alt="LG" loading="lazy">
+                  </div>
+                  <h3 class="font-semibold text-gray-800 mb-2">Appreciation Letter</h3>
+                  <p class="text-gray-600 text-sm">LG, 17th September 2025</p>
+               </div>
+               <div class="trophy bg-white p-6 rounded-xl text-center" data-aos="zoom-in" data-aos-delay="300">
+                  <div class="bg-indigo-0 w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4">
+                     <img src="assets/Lg.webp" alt="LG" loading="lazy">
+                  </div>
+                  <h3 class="font-semibold text-gray-800 mb-2">Appreciation Letter</h3>
+                  <p class="text-gray-600 text-sm">LG, 19th September 2025</p>
+               </div>
+            </div>
+         </div>
+      </section>
+      <!--Wallpaper Carousel Section-->
+      <section id="wallpaper-carousel" class="py-20 bg-white">
+         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+               <h2 class="text-3xl font-bold text-gray-800 mb-4">Rewards <span class="text-indigo-600">Gallery</span></h2>
+               <div class="w-20 h-1 bg-indigo-600 mx-auto"></div>
+            </div>
+            <div class="relative w-full h-96 overflow-hidden rounded-xl shadow-xl" data-aos="zoom-in">
+               <div class="carousel-container relative w-full h-full flex transition-transform duration-700 ease-in-out">
+                  <img src="assets/AIESL%20Appreciation%20Letter.webp" alt="Wallpaper 1" class="w-full h-full object-cover flex-shrink-0" loading="lazy">
+                  <img src="assets/NASA%20Appreciation%20Letter%201.webp" alt="Wallpaper 2" class="w-full h-full object-cover flex-shrink-0" loading="lazy">
+                  <img src="assets/NASA%20Appreciation%20Letter%202.webp" alt="Wallpaper 3" class="w-full h-full object-cover flex-shrink-0" loading="lazy">
+                  <img src="assets/LG%20Appreciation%20Letter%201.webp" alt="Wallpaper 4" class="w-full h-full object-cover flex-shrink-0" loading="lazy">
+                  <img src="assets/LG%20Appreciation%20Letter%202.webp" alt="Wallpaper 5" class="w-full h-full object-cover flex-shrink-0" loading="lazy">
+                  <img src="assets/Dynatrace.webp" alt="Wallpaper 5" class="w-full h-full object-cover flex-shrink-0" loading="lazy">
+                  <img src="assets/Kalshi.webp" alt="Wallpaper 5" class="w-full h-full object-cover flex-shrink-0" loading="lazy">
+                  <img src="assets/Tplink.webp" alt="Wallpaper 5" class="w-full h-full object-cover flex-shrink-0" loading="lazy">
+               </div>
+               <button id="prev-btn" class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75 transition-all duration-300" aria-label="Previous Button">
+               <i data-feather="chevron-left" class="w-6 h-6"></i>
+               </button>
+               <button id="next-btn" class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75 transition-all duration-300" aria-label="Next Button">
+               <i data-feather="chevron-right" class="w-6 h-6"></i>
+               </button>
+            </div>
+         </div>
+      </section>
+      <!-- Contact Section -->
+      <section id="contact" class="py-20 bg-white">
+         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+               <h2 class="text-3xl font-bold text-gray-800 mb-4">Get In <span class="text-indigo-600">Touch</span></h2>
+               <div class="w-20 h-1 bg-indigo-600 mx-auto"></div>
+            </div>
+            <div class="flex flex-col md:flex-row">
+               <div class="md:w-1/2 mb-10 md:mb-0 md:pr-8" data-aos="fade-right">
+                  <h3 class="text-2xl font-semibold text-gray-800 mb-6">Contact Information</h3>
+                  <p class="text-gray-600 mb-8">
+                     Feel free to reach out to me for collaborations, job opportunities, or just to say hello!
+                  </p>
+                  <div class="space-y-4">
+                     <div class="flex items-center">
+                        <div class="bg-indigo-100 p-3 rounded-lg mr-4">
+                           <i data-feather="mail" class="w-5 h-5 text-indigo-600"></i>
+                        </div>
+                        <div>
+                           <h4 class="font-medium text-gray-800">Email</h4>
+                           <p class="text-gray-600">swapnilbhaye75@gmail.com</p>
+                        </div>
+                     </div>
+                     <div class="flex items-center">
+                        <div class="bg-indigo-100 p-3 rounded-lg mr-4">
+                           <i data-feather="phone" class="w-5 h-5 text-indigo-600"></i>
+                        </div>
+                        <div>
+                           <h4 class="font-medium text-gray-800">Phone</h4>
+                           <p class="text-gray-600">+91 9892810088</p>
+                        </div>
+                     </div>
+                     <div class="flex items-center">
+                        <div class="bg-indigo-100 p-3 rounded-lg mr-4">
+                           <i data-feather="map-pin" class="w-5 h-5 text-indigo-600"></i>
+                        </div>
+                        <div>
+                           <h4 class="font-medium text-gray-800">Location</h4>
+                           <p class="text-gray-600">Mumbai, India</p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="mt-8">
+                     <h4 class="font-medium text-gray-800 mb-4">Follow Me</h4>
+                     <div class="flex space-x-4">
+                        <a href="https://www.linkedin.com/in/swapnil-bhaye" class="social-icon bg-indigo-100 text-indigo-600 p-3 rounded-full" aria-label="Visit Swapnil Bhaye on LinkedIn" target="_blank">
+                        <i data-feather="linkedin" class="w-5 h-5"></i>
+                        </a>
+                        <a href="mailto:swapnilbhaye75@gmail.com" class="social-icon bg-indigo-100 text-indigo-600 p-3 rounded-full" aria-label="Email">
+                        <i data-feather="mail" class="w-5 h-5"></i>
+                        </a>
+                        <a href="https://www.youtube.com/channel/UC4jnn2AqE6b9UPeKUZbbLLw" class="social-icon bg-indigo-100 text-indigo-600 p-3 rounded-full" aria-label="Visit Swapnil Bhaye on Youtube" rel="nofollow" target="_blank">
+                        <i data-feather="youtube" class="w-5 h-5"></i>
+                        </a>
+                        <a href="https://www.facebook.com/swapnil.bhaye" class="social-icon bg-indigo-100 text-indigo-600 p-3 rounded-full" aria-label="Visit Swapnil Bhaye on Facebook" rel="nofollow" target="_blank">
+                        <i data-feather="facebook" class="w-5 h-5"></i>
+                        </a>
+                        <a href="https://wa.me/9892810088?text=Swapnil%20Bhaye" class="social-icon bg-indigo-100 text-indigo-600 p-3 rounded-full" aria-label="Visit Swapnil Bhaye on Whatsapp" rel="nofollow" target="_blank">
+                        <i data-feather="message-circle" class="w-5 h-5"></i>
+                        </a>
+                        <a href="https://t.me/ConfuserExCore" class="social-icon bg-indigo-100 text-indigo-600 p-3 rounded-full" aria-label="Visit Swapnil Bhaye on Telegram" rel="nofollow" target="_blank">
+                        <i data-feather="send" class="w-5 h-5"></i>
+                        </a>
+                     </div>
+                  </div>
+               </div>
+               <div class="md:w-1/2 md:pl-8" data-aos="fade-left">
+                  <iframe name="hidden-iframe" id="hidden-iframe" style="display:none;" onload="formSubmitHandler()"></iframe>
+                  <form id="contact-form" action="https://script.google.com/macros/s/AKfycbwvvFdlfenQ1nEUH4ZZbwwsesPM-pwnbr5LSG4_Yt_lJVhoT2CM9ei9HotHfh2AxFHJCA/exec" method="POST" target="hidden-iframe" class="max-w-xl mx-auto p-8 bg-white dark:bg-gray-900 shadow-md rounded-lg">
+                     <div class="mb-4">
+                        <label for="name" class="block text-gray-700 dark:text-gray-200 mb-2">Name</label>
+                        <input type="text" id="name" name="name" autocomplete="name" class="w-full px-3 py-2 border rounded-md dark:bg-gray-700 dark:text-white" required>
+                     </div>
+                     <div class="mb-4">
+                        <label for="email" class="block text-gray-700 dark:text-gray-200 mb-2">Email</label>
+                        <input type="email" id="email" name="email" autocomplete="email" class="w-full px-3 py-2 border rounded-md dark:bg-gray-700 dark:text-white" required>
+                     </div>
+                     <div class="mb-4">
+                        <label for="message" class="block text-gray-700 dark:text-gray-200 mb-2">Message</label>
+                        <textarea id="message" name="message" rows="4" class="w-full px-3 py-2 border rounded-md dark:bg-gray-700 dark:text-white" required></textarea>
+                     </div>
+                     <button type="submit" class="w-full bg-blue-600 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-700 transition duration-300">Send Message</button>
+                     <div id="form-status" class="mt-4 text-center text-sm font-semibold"></div>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </section>
+      <!-- Script for message form	-->
+      <script>
+         const form = document.getElementById("contact-form");
+         const statusEl = document.getElementById("form-status");
+         let timeoutId = null; // Variable to hold the timeout ID
+         
+         // Function to run when the hidden iframe finishes loading after form submission
+         function formSubmitHandler() {
+             
+             // Clear any previous timeout if a new form is submitted quickly
+             if (timeoutId) {
+                 clearTimeout(timeoutId);
+             }
+         
+             // Only run if the form was actually submitted
+             if (form.getAttribute('data-submitted')) {
+                 // 1. Display the success message
+                 statusEl.textContent = "✅ Message sent successfully!";
+                 statusEl.style.color = "#10b981"; // Tailwind 'text-green-500' equivalent
+                 statusEl.className = "success text-center";
+                 form.reset();
+                 form.removeAttribute('data-submitted'); // Reset flag
+                 
+                 // 2. Set a timeout to clear the message after 10 seconds (10000 milliseconds)
+                 timeoutId = setTimeout(() => {
+                     statusEl.textContent = ""; // Clear the text
+                     statusEl.style.color = "";  // Clear the color
+                     statusEl.className = "";    // Clear the class
+                 }, 10000); // 10 seconds
+             }
+         }
+         
+         form.addEventListener('submit', function() {
+             // Clear the status text immediately before submitting a new form
+             statusEl.textContent = "";
+             
+             // Set a flag and show a waiting message before submission
+             form.setAttribute('data-submitted', 'true');
+             statusEl.textContent = "⏳ Sending message...";
+             statusEl.style.color = "#3b82f6"; // Tailwind 'text-blue-500' equivalent
+             statusEl.className = "text-center";
+         	});
+      </script>
+      <!-- Footer -->
+      <footer class="bg-gray-900 text-white py-12">
+         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+               <div class="mb-6 md:mb-0">
+                  <a class="text-xl font-bold text-white flex items-center">
+                  <span class="mr-2">SWAPNIL</span>
+                  <span class="bg-indigo-600 text-white px-2 py-1 rounded-md">BHAYE</span>
+                  </a>
+                  <p class="text-gray-400 mt-4">Creating immersive digital experiences.</p>
+               </div>
+               <div class="flex space-x-6">
+                  <a href="https://www.linkedin.com/in/swapnil-bhaye" class="text-gray-400 hover:text-white transition duration-300" aria-label="Visit Swapnil Bhaye on LinkedIn" target="_blank">
+                  <i data-feather="linkedin" class="w-5 h-5"></i>
+                  </a>
+                  <a href="mailto:swapnilbhaye75@gmail.com" class="text-gray-400 hover:text-white transition duration-300" aria-label="Visit Swapnil Bhaye on Email" target="_blank">
+                  <i data-feather="mail" class="w-5 h-5"></i>
+                  </a>
+                  <a href="https://www.youtube.com/channel/UC4jnn2AqE6b9UPeKUZbbLLw" class="text-gray-400 hover:text-white transition duration-300" aria-label="Visit Swapnil Bhaye on Youtube" rel="nofollow" target="_blank">
+                  <i data-feather="youtube" class="w-5 h-5"></i>
+                  </a>
+                  <a href="https://www.facebook.com/swapnil.bhaye" class="text-gray-400 hover:text-white transition duration-300" aria-label="Visit Swapnil Bhaye on Facebook" rel="nofollow" target="_blank">
+                  <i data-feather="facebook" class="w-5 h-5"></i>
+                  </a>
+                  <a href="https://wa.me/9892810088?text=Swapnil%20Bhaye" class="text-gray-400 hover:text-white transition duration-300" aria-label="Visit Swapnil Bhaye on Whatsapp" rel="nofollow" target="_blank">
+                  <i data-feather="message-circle" class="w-5 h-5"></i>
+                  </a>
+                  <a href="https://t.me/ConfuserExCore" class="text-gray-400 hover:text-white transition duration-300" aria-label="Visit Swapnil Bhaye on Telegram" rel="nofollow" target="_blank">
+                  <i data-feather="send" class="w-5 h-5"></i>
+                  </a>	
+               </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+               <p class="text-gray-400 text-sm mb-4 md:mb-0">© Designed with ❤️ Swapnil Bhaye</p>
+            </div>
+         </div>
+      </footer>
+      <!-- JS -->
+      <script>
+         // Save original console.warn
+         const originalWarn = console.warn;
+         
+         // Silence THREE.js length warning
+         console.warn = function(msg, ...args) {
+          if (typeof msg === 'string' && msg.includes('THREE.BufferAttribute: .length')) {
+            		return; // ignore this warning
+          	}
+          		originalWarn(msg, ...args); // log other warnings normally
+         	};
+         
+      </script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.5/typed.min.js"></script>
+      <script>
+         new Typed(".typing-text", {
+          	strings: ["Electronics Engineer", "Ethical Hacker", "Penetration Tester", "Reverse Engineering Enthusiast", "Bug Hunter", "Defronix Certified Junior Security Professional", "Machine Maintenance Professional", "CNC Machine Troubleshooter", "@NASA Hall Of Fame"],
+          	typeSpeed: 80,
+          	backSpeed: 50,
+          	loop: true
+         });
+      </script>
+      <!-- Back to Top Button -->
+      <a href="#top" id="back-to-top" class="fixed bottom-8 right-8 bg-indigo-600 text-white p-3 rounded-full shadow-lg hover:bg-indigo-700 transition" aria-label="Visit Top">
+      <i data-feather="arrow-up" class="w-5 h-5"></i>
+      </a>
+      <script>
+         // Get references to DOM elements
+         const loadingBar = document.getElementById('loading-bar');
+         const percentageText = document.getElementById('percentage');
+         const statusText = document.getElementById('status-text');
+         const preloader = document.getElementById('preloader');
+         let progress = 0;
+         const intervalDuration = 50; // Update every 50ms for smooth animation
+         
+         /**
+          * Simulates the loading process from 0% to 100%.
+          */
+         function startLoadingSimulation() {
+             const loadingInterval = setInterval(() => {
+                 // Determine the increment amount (faster at the start, slower near the end)
+                 let increment = 1;
+                 if (progress < 25) {
+                     increment = Math.floor(Math.random() * 3) + 1; // 1-3
+                 } else if (progress < 70) {
+                     increment = Math.floor(Math.random() * 2) + 1; // 1-2
+                 } else {
+                     increment = 1;
+                 }
+                 progress += increment;
+                 // Ensure progress doesn't exceed 100
+                 if (progress >= 100) {
+                     progress = 100;
+                     clearInterval(loadingInterval);
+                     onLoadingComplete();
+                 }
+                 // Update the UI
+                 loadingBar.style.width = `${progress}%`;
+                 percentageText.textContent = `${progress}%`;
+                 // Update status text based on progress
+                 if (progress < 30) {
+                     statusText.innerHTML = '<span class="text-cyan-400">CHECKING</span><span class="text-pink-400 ml-2"> TARGET...</span>';
+                 } else if (progress < 60) {
+                     statusText.innerHTML = '<span class="text-cyan-400">TRANSFERRING</span><span class="text-pink-400 ml-2"> DATA...</span>';
+                 } else if (progress < 99) {
+                     statusText.innerHTML = '<span class="text-cyan-400">EXECUTING</span><span class="text-pink-400 ml-2"> PAYLOADS...</span>';
+                 } else {
+                     statusText.innerHTML = '<span class="text-green-400">EXPLOIT</span><span class="text-yellow-400 ml-2"> COMPLETED.</span>';
+                 }
+         
+             }, intervalDuration);
+         }
+         
+         /**
+          * Handles the final state once loading is finished.
+          */
+         function onLoadingComplete() {
+             // Optional: Wait a moment before fading out
+             setTimeout(() => {
+                 preloader.style.opacity = '0';
+                 // Wait for the fade-out transition to finish before setting display: none
+                 setTimeout(() => {
+                     preloader.style.display = 'none';
+                 }, 500); // Matches the CSS transition duration
+             }, 500); // Wait 0.5s at 100%
+         }
+         
+         // Start the simulation when the page loads
+         document.addEventListener('DOMContentLoaded', startLoadingSimulation);
+      </script>
+      <script>
+         // Initialize AOS
+         AOS.init({
+             duration: 800,
+             easing: 'ease-in-out',
+             once: true
+         });
+         
+         // Initialize Vanta.js
+         VANTA.BIRDS({
+         el: "#vanta-bg",
+         mouseControls: true,
+         touchControls: true,
+         gyroControls: false,
+         minHeight: 200.00,
+         minWidth: 200.00,
+         scale: 1.00,
+         scaleMobile: 1.00,
+         backgroundColor: 0xffffff,
+         birdSize: 1.50,
+         wingSpan: 14.00,
+         separation: 67.00,
+         alignment: 42.00,
+         cohesion: 41.00,
+         quantity: 3.00
+         })
+         // Initialize Feather Icons
+         feather.replace();
+         
+         // Mobile Menu Toggle
+         const menuBtn = document.getElementById('menu-btn');
+         const mobileMenu = document.getElementById('mobile-menu');
+         
+         menuBtn.addEventListener('click', () => {
+             mobileMenu.classList.toggle('hidden');
+             if (mobileMenu.classList.contains('hidden')) {
+                 feather.replace();
+             } else {
+                 feather.replace();
+             }
+         });
+         
+         // Close mobile menu when clicking a link
+         document.querySelectorAll('#mobile-menu a').forEach(link => {
+             link.addEventListener('click', () => {
+                 mobileMenu.classList.add('hidden');
+             });
+         });
+         
+         // Back to Top Button
+         const backToTopButton = document.getElementById('back-to-top');
+         
+         window.addEventListener('scroll', () => {
+             if (window.pageYOffset > 300) {
+                 backToTopButton.classList.remove('opacity-0', 'invisible');
+                 backToTopButton.classList.add('opacity-100', 'visible');
+             } else {
+                 backToTopButton.classList.remove('opacity-100', 'visible');
+                 backToTopButton.classList.add('opacity-0', 'invisible');
+             }
+         });
+         
+         backToTopButton.addEventListener('click', (e) => {
+             e.preventDefault();
+             window.scrollTo({top: 0, behavior: 'smooth'});
+         });
+         
+         // Wallpaper Carousel
+         const carouselContainer = document.querySelector('.carousel-container');
+         const prevBtn = document.getElementById('prev-btn');
+         const nextBtn = document.getElementById('next-btn');
+         const slides = carouselContainer.querySelectorAll('img');
+         let currentSlide = 0;
+         
+         const updateCarousel = () => {
+             carouselContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
+         };
+         
+         nextBtn.addEventListener('click', () => {
+             currentSlide = (currentSlide + 1) % slides.length;
+             updateCarousel();
+         });
+         
+         prevBtn.addEventListener('click', () => {
+             currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+             updateCarousel();
+         });
+         
+         // Smooth scrolling for navigation links
+         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+             anchor.addEventListener('click', function (e) {
+                 e.preventDefault();  
+                 document.querySelector(this.getAttribute('href')).scrollIntoView({
+                     behavior: 'smooth'
+                 });
+             });
+         });
+      </script>
+   </body>
+</html>
