@@ -70,7 +70,9 @@ Feel free to explore my repositories and connect with me for collaborations or o
 
 ## 📊 GitHub Traffic & Visitors
 
-![Visitors](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https://github.com/swapnilbhaye/swapnilbhaye.github.io&title=Visitors)
+![Page Views](https://komarev.com/ghpvc/?username=swapnilbhaye&style=flat-square&color=blue)
+![Visitors](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https://github.com/swapnilbhaye/swapnilbhaye.github.io&count_bg=%2379C83D&title_bg=%23555555&icon=github.svg&icon_color=%23E7E7E7&title=Visitors&edge_flat=false)
+
 
 
 
