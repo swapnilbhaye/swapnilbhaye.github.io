@@ -70,7 +70,7 @@ Feel free to explore my repositories and connect with me for collaborations or o
 
 ## 📊 GitHub Traffic & Visitors
 
-![Visitors](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https://github.com/swapnilbhaye/swapnilbhaye.github.io&title=Visitors)
+![Profile Views](https://komarev.com/ghpvc/?username=swapnilbhaye&label=Visitors&color=0e75b6&style=flat)
 ![Page Views](https://komarev.com/ghpvc/?username=swapnilbhaye&style=flat-square&color=blue)
 
 <!--START_SECTION:traffic-->
