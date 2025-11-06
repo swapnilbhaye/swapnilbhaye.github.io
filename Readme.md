@@ -67,3 +67,11 @@ Welcome to my GitHub profile! I'm Swapnil Bhaye, a versatile Electronics Enginee
 - **Portfolio**: [swapnilbhaye.github.io](https://swapnilbhaye.github.io)
 
 Feel free to explore my repositories and connect with me for collaborations or opportunities!
+
+## 📊 GitHub Traffic & Visitors
+
+![Visitors](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https://github.com/swapnilbhaye/swapnilbhaye.github.io&title=Visitors)
+![Page Views](https://komarev.com/ghpvc/?username=swapnilbhaye&style=flat-square&color=blue)
+
+
+
