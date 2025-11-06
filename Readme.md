@@ -4,6 +4,8 @@ Welcome to my GitHub profile! I'm Swapnil Bhaye, a versatile Electronics Enginee
 
 ![Swapnil Bhaye](https://raw.githubusercontent.com/swapnilbhaye/swapnilbhaye.github.io/refs/heads/main/assets/Logo.webp)
 
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&pause=1000&color=00C853&width=435&lines=Hey!+I'm+Swapnil+Bhaye;Cybersecurity+Enthusiast;Web+Pentester+%26+Developer)](https://git.io/typing-svg)
+
 ## 🔧 Skills & Expertise
 
 - **Technical Skills**: PCB Designing, AutoCAD Electrical, Reverse Engineering
